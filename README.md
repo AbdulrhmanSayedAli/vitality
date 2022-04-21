@@ -46,8 +46,9 @@ Vitality.randomly(
         Vitality.randomly(
                 height: size.height,
                 width: size.width,
-                ...)
-        ```
+                ...
+                )
+    ```
  
 
 * the whenOutOfScreenMode defines what should the shape do when it reaches the screen edge :
