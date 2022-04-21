@@ -34,14 +34,25 @@ Vitality.randomly(
                 randomItemsBehaviours: [
                   ItemBehaviour(shape: ShapeType.Icon, icon: Icons.star),
                   ItemBehaviour(shape: ShapeType.Icon, icon: Icons.star_border),
+                  ItemBehaviour(shape: ShapeType.StrokeCircle),
                 ],
               )
 ```
 
 
-* the whenOutOfScreenMode defines what should the shape do when it reaches the screen edge:
-    - <b>none<b> : it does nothing and continues its movements out the screen.
-    - <b>Reflect<b> : it bounces and returns in the oppisite direction.
-    - <b>Teleprt<b> : it continues its movements to the other side of the screen.
+* the whenOutOfScreenMode defines what should the shape do when it reaches the screen edge :
+    - <b>none</b> : it does nothing and continues its movements out the screen.
+    - <b>Reflect</b> : it bounces and returns in the oppisite direction.
+    - <b>Teleprt</b> : it continues its movements to the other side of the screen.
 
+* the randomItemsBehaviours defines what available shapes can the library generate :
+    - you can chose one from the ShapeType enum (FilledCircle, StrokeCicle, FilledRectangle, icon, ...)
+
+         ```dart
+        ItemBehaviour(shape: ShapeType.StrokeCircle)
+        ```
+    - if you chose the icon type you also have to pass an IconDate to the Item Behaviour
+        ```dart
+         ItemBehaviour(shape: ShapeType.Icon, icon: Icons.star)
+        ```
 
