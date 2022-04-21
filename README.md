@@ -1,8 +1,10 @@
 # vitality
 
-A new Flutter package project.
+ A Flutter package project that Allows you to create very beautiful live animations in the background (like randomly moving icons ,circles ,rectanfles ....) within 10 lines.
 
-## Getting Started
+## Examples 
+
+Here is some examples of using vitality library.
 
 This project is a starting point for a Dart
 [package](https://flutter.dev/developing-packages/),
