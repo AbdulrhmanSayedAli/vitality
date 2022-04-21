@@ -6,11 +6,11 @@
 
 Here is some examples of using vitality library :
 
-* ![example 1](https://github.com/AbdulrhmanSayedAli/vitality/blob/main/examples/example_1.gif) ![example 2](https://github.com/AbdulrhmanSayedAli/vitality/blob/main/examples/example_2.gif)
+* ![example 1](https://github.com/AbdulrhmanSayedAli/vitality/blob/main/example/example_1.gif) ![example 2](https://github.com/AbdulrhmanSayedAli/vitality/blob/main/example/example_2.gif)
 
-* ![example 3](https://github.com/AbdulrhmanSayedAli/vitality/blob/main/examples/example_3.gif) ![example 4](https://github.com/AbdulrhmanSayedAli/vitality/blob/main/examples/example_4.gif)
+* ![example 3](https://github.com/AbdulrhmanSayedAli/vitality/blob/main/example/example_3.gif) ![example 4](https://github.com/AbdulrhmanSayedAli/vitality/blob/main/example/example_4.gif)
 
-* ![example 5](https://github.com/AbdulrhmanSayedAli/vitality/blob/main/examples/example_5.gif)
+* ![example 5](https://github.com/AbdulrhmanSayedAli/vitality/blob/main/example/example_5.gif)
 
 
 ## usage :
