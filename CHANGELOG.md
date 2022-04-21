@@ -1,4 +1,4 @@
-## 1.0.0
+## 1.0.1
 
 * A Flutter package that Allows you to create a very beautiful live animations in the background (like randomly moving icons ,circles ,rectangles ....) within 10 lines.
 
