@@ -21,7 +21,7 @@ Here is some examples of using vitality library :
 Vitality.randomly(
                 height: size.height,
                 width: size.width,
-                background: Colors.white,
+                background: Colors.black,
                 maxOpacity: 0.8,
                 minOpacity: 0.3,
                 itemsCount: 80,
@@ -39,6 +39,16 @@ Vitality.randomly(
               )
 ```
 
+* <b>Note!! :</b> Do not pass double.infinty to the width or hight use MediaQuery instead :
+    ```dart
+       Size size = MediaQuery.of(context).size;
+        ...
+        Vitality.randomly(
+                height: size.height,
+                width: size.width,
+                ...)
+        ```
+ 
 
 * the whenOutOfScreenMode defines what should the shape do when it reaches the screen edge :
     - <b>none</b> : it does nothing and continues its movements out the screen.
