@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vitality/shapesManagement/Shape.dart';
 
-import '../shapesManagement/ShapesGenerator.dart';
-
 class VitalityPainter extends CustomPainter {
   List<Shape> shapes;
   Color? background;

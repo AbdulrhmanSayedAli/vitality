@@ -2,9 +2,7 @@ library vitality;
 
 import 'dart:async';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-
 import 'models/ItemBehaviour.dart';
 import 'models/WhenOutOfScreenMode.dart';
 import 'models/vitalityMode.dart';
@@ -26,8 +24,8 @@ class Vitality extends StatefulWidget {
   late bool enableXMovements;
   late bool enableYMovements;
   late WhenOutOfScreenMode whenOutOfScreenMode;
-  late List<ItemBehaviour> randomItemsBehaviours;
-  late List<Color> randomItemsColors;
+  List<ItemBehaviour> randomItemsBehaviours;
+  List<Color> randomItemsColors;
   late VitalityMode mode;
   late int lines;
 
@@ -107,12 +105,12 @@ class _VitalityState extends State<Vitality> {
   WhenOutOfScreenMode whenOutOfScreenMode;
   List<ItemBehaviour> randomItemsBehaviours;
   List<Color> randomItemsColors;
-  late final List<Shape> shapes;
+  late List<Shape> shapes;
   bool enableXMovements;
   bool enableYMovements;
   VitalityMode mode;
   late ShapesGenerator generator;
-  late final List<List<Shape>> linesShapes;
+  late List<List<Shape>> linesShapes;
 
   _VitalityState(
       {required this.height,
@@ -132,19 +130,20 @@ class _VitalityState extends State<Vitality> {
       required this.minSpeed,
       required this.maxSpeed,
       this.background}) {
-    generator = ShapesGenerator.Randomly(
-        maxWidth: width,
-        maxHeight: height,
-        maxSize: maxSize,
-        minSize: minSize,
-        maxOpacity: maxOpacity,
-        minOpacity: minOpacity,
-        behaviours: randomItemsBehaviours,
-        minSpeed: minSpeed,
-        colors: randomItemsColors,
-        enableXMovements: enableXMovements,
-        enableYMovements: enableYMovements,
-        maxSpeed: maxSpeed);
+    generator = ShapesGenerator.randomly(
+      maxWidth: width,
+      maxHeight: height,
+      maxSize: maxSize,
+      minSize: minSize,
+      maxOpacity: maxOpacity,
+      minOpacity: minOpacity,
+      behaviours: randomItemsBehaviours,
+      minSpeed: minSpeed,
+      colors: randomItemsColors,
+      enableXMovements: enableXMovements,
+      enableYMovements: enableYMovements,
+      maxSpeed: maxSpeed,
+    );
 
     shapes = generator.getShapes(count);
 

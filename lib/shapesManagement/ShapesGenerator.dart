@@ -1,9 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:vitality/models/ItemBehaviour.dart';
-
 import 'Shape.dart';
 
 class ShapesGenerator {
@@ -17,22 +15,23 @@ class ShapesGenerator {
   double minSpeed;
   bool enableXMovements;
   bool enableYMovements;
-  late List<ItemBehaviour> behaviours;
-  late List<Color> colors;
+  List<ItemBehaviour> behaviours = [];
+  List<Color> colors = [];
 
-  ShapesGenerator.Randomly(
-      {required this.maxWidth,
-      required this.maxHeight,
-      required this.enableXMovements,
-      required this.enableYMovements,
-      required this.maxSize,
-      required this.minSize,
-      required this.maxOpacity,
-      required this.minOpacity,
-      required List<ItemBehaviour> behaviours,
-      required List<Color> colors,
-      required this.maxSpeed,
-      required this.minSpeed}) {
+  ShapesGenerator.randomly({
+    required this.maxWidth,
+    required this.maxHeight,
+    required this.enableXMovements,
+    required this.enableYMovements,
+    required this.maxSize,
+    required this.minSize,
+    required this.maxOpacity,
+    required this.minOpacity,
+    required List<ItemBehaviour> behaviours,
+    required List<Color> colors,
+    required this.maxSpeed,
+    required this.minSpeed,
+  }) {
     this.behaviours = [];
     this.colors = [];
     for (ItemBehaviour b in behaviours) {
@@ -44,8 +43,8 @@ class ShapesGenerator {
       this.colors.add(c);
     }
 
-    colors.shuffle();
-    behaviours.shuffle();
+    this.colors.shuffle();
+    this.behaviours.shuffle();
   }
 
   Random rm = Random();

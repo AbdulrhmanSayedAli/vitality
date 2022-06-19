@@ -6,16 +6,16 @@
 
 Here is some examples of using vitality library :
 
-* ![example 1](https://github.com/AbdulrhmanSayedAli/vitality/blob/main/example/example_1.gif) ![example 2](https://github.com/AbdulrhmanSayedAli/vitality/blob/main/example/example_2.gif)
+* ![example 1](https://github.com/AbdulrhmanSayedAli/vitalityGifs/blob/main/example_1.gif) ![example 2](https://github.com/AbdulrhmanSayedAli/vitalityGifs/blob/main/example_2.gif)
 
-* ![example 3](https://github.com/AbdulrhmanSayedAli/vitality/blob/main/example/example_3.gif) ![example 4](https://github.com/AbdulrhmanSayedAli/vitality/blob/main/example/example_4.gif)
+* ![example 3](https://github.com/AbdulrhmanSayedAli/vitalityGifs/blob/main/example_3.gif) ![example 4](https://github.com/AbdulrhmanSayedAli/vitalityGifs/blob/main/example_4.gif)
 
-* ![example 5](https://github.com/AbdulrhmanSayedAli/vitality/blob/main/example/example_5.gif)
+* ![example 5](https://github.com/AbdulrhmanSayedAli/vitalityGifs/blob/main/example_5.gif)
 
 
 ## usage :
 
-* vitality package is very easy to use you cane understand its usage in the code below :
+* vitality package is very easy to use you can understand its usage in the code below :
 
 ```dart
 Vitality.randomly(
@@ -39,7 +39,7 @@ Vitality.randomly(
               )
 ```
 
-* <b>Note!! :</b> Do not pass double.infinty to the width or hight use MediaQuery instead :
+* <b>Note!! :</b> Do not pass double.infinty to the width or height use MediaQuery instead :
     ```dart
        Size size = MediaQuery.of(context).size;
         ...
@@ -54,7 +54,7 @@ Vitality.randomly(
 * the whenOutOfScreenMode defines what should the shape do when it reaches the screen edge :
     - <b>none</b> : it does nothing and continues its movements out the screen.
     - <b>Reflect</b> : it bounces and returns in the oppisite direction.
-    - <b>Teleprt</b> : it continues its movements to the other side of the screen.
+    - <b>Teleport</b> : it continues its movements to the other side of the screen.
 
 * the randomItemsBehaviours defines what available shapes can the library generate :
     - you can chose one from the ShapeType enum (FilledCircle, StrokeCicle, FilledRectangle, icon, ...)
