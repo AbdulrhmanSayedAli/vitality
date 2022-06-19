@@ -5,3 +5,7 @@
 * added the randomly generated animations with a custom settings chosen by you (like make the movements vertically only, determine minimum and maximum speed, size, opacity ...).
 
 * added the lines generated animation which gives animated queues if shapes with number of lines determined by you.
+
+## 1.0.2
+
+*Fixing error : "Unsupported operation: Cannot modify an unmodifiable list" error when passing a const array of colors
