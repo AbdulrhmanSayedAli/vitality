@@ -57,12 +57,12 @@ Vitality.randomly(
     - <b>Teleport</b> : it continues its movements to the other side of the screen.
 
 * the randomItemsBehaviours defines what available shapes can the library generate :
-    - you can chose one from the ShapeType enum (FilledCircle, StrokeCicle, FilledRectangle, icon, ...)
+    - you can chose one from the ShapeType enum (FilledCircle, StrokeCicle, FilledRectangle, Icon, ...)
 
          ```dart
         ItemBehaviour(shape: ShapeType.StrokeCircle)
         ```
-    - if you chose the icon type you also have to pass an IconDate to the Item Behaviour
+    - if you chose the icon type you also have to pass an IconData to the Item Behaviour
         ```dart
          ItemBehaviour(shape: ShapeType.Icon, icon: Icons.star)
         ```

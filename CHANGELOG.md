@@ -8,4 +8,8 @@
 
 ## 1.0.2
 
-*Fixing error : "Unsupported operation: Cannot modify an unmodifiable list" error when passing a const array of colors
+* Fixing error : "Unsupported operation: Cannot modify an unmodifiable list" error when passing a const array of colors
+
+## 1.0.3
+
+* Improving performance
