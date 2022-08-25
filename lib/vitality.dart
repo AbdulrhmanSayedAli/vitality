@@ -190,6 +190,12 @@ class _VitalityState extends State<Vitality> {
   late Timer timer;
 
   @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     timer = Timer.periodic(Duration(milliseconds: 1000 ~/ 60), (t) {
