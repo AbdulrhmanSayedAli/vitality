@@ -44,13 +44,16 @@ class Vitality extends StatefulWidget {
       this.whenOutOfScreenMode = WhenOutOfScreenMode.none,
       required this.randomItemsBehaviours,
       required this.randomItemsColors,
-      this.background}) {
+        Key? key,
+      this.background}) : super(key: key) {
     mode = VitalityMode.Randomly;
     lines = 0;
   }
 
   Vitality.lines(
-      {required this.height,
+      {
+        Key? key,
+        required this.height,
       required this.width,
       this.maxOpacity = 0.8,
       this.minOpacity = 0.1,
@@ -59,7 +62,7 @@ class Vitality extends StatefulWidget {
       this.lines = 5,
       required this.randomItemsBehaviours,
       required this.randomItemsColors,
-      this.background}) {
+      this.background}): super(key: key)  {
     mode = VitalityMode.Lines;
     whenOutOfScreenMode = WhenOutOfScreenMode.Teleport;
     minSize = maxSize = 0;
