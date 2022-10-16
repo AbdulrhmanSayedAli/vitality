@@ -159,6 +159,7 @@ class _VitalityState extends State<Vitality> {
     if (mode == VitalityMode.Randomly)
       return ClipRRect(
         child: CustomPaint(
+          willChange: true,
           size: Size(width, height),
           painter: VitalityPainter(shapes, background),
         ),
@@ -176,6 +177,7 @@ class _VitalityState extends State<Vitality> {
               ),
               for (int i = 0; i < lines; i++) ...[
                 CustomPaint(
+                  willChange: true,
                   size: Size(width, height / (2 * (lines + 1))),
                   painter: VitalityPainter(linesShapes[i], null),
                 ),
