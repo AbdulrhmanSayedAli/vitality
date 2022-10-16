@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:vitality/shapesManagement/Shape.dart';
 
-class VitalityPainter extends CustomPainter {
+class VitalityPainter extends CustomPainter implements Equatable {
   List<Shape> shapes;
   Color? background;
 
@@ -17,6 +18,14 @@ class VitalityPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(VitalityPainter oldDelegate) {
-    return oldDelegate.shapes != shapes || oldDelegate.background != background;
+    return true; //oldDelegate.shapes != shapes || oldDelegate.background != background;
   }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [shapes, background];
+
+  @override
+  // TODO: implement stringify
+  bool? get stringify => true;
 }
