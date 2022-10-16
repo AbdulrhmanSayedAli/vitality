@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:vitality/models/ItemBehaviour.dart';
 
-class Shape {
+class Shape implements Equatable {
   late Offset pos;
   late double dx;
   late double dy;
@@ -146,4 +147,12 @@ class Shape {
     }
     pos = Offset(x, y);
   }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [pos, dx, dy, size, color, behaviour];
+
+  @override
+  // TODO: implement stringify
+  bool? get stringify => true;
 }
