@@ -87,7 +87,6 @@ class Vitality extends StatefulWidget {
         mode: mode,
         lines: lines,
         randomItemsColors: randomItemsColors,
-        background: background,
         maxOpacity: min(maxOpacity, 1),
         minOpacity: max(minOpacity, 0),
       );
@@ -104,7 +103,6 @@ class _VitalityState extends State<Vitality> {
   int lines;
   double maxSpeed;
   double minSpeed;
-  Color? background;
   WhenOutOfScreenMode whenOutOfScreenMode;
   List<ItemBehaviour> randomItemsBehaviours;
   List<Color> randomItemsColors;
@@ -132,7 +130,7 @@ class _VitalityState extends State<Vitality> {
       required this.minOpacity,
       required this.minSpeed,
       required this.maxSpeed,
-      this.background}) {
+      }) {
     generator = ShapesGenerator.randomly(
       maxWidth: width,
       maxHeight: height,
@@ -162,13 +160,13 @@ class _VitalityState extends State<Vitality> {
           isComplex: true,
           willChange: true,
           size: Size(width, height),
-          painter: VitalityPainter(shapes, background),
+          painter: VitalityPainter(shapes, widget.background),
         ),
       );
     else
       return ClipRRect(
         child: Container(
-          color: background,
+          color: widget.background,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
