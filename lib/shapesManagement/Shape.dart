@@ -16,7 +16,8 @@ class Shape implements Equatable {
       required this.dy,
       required this.size,
       required this.color,
-      required this.behaviour});
+      required this.behaviour
+      });
 
   void draw(Canvas canvas, Size size) {
     if (behaviour.shape == ShapeType.FilledCircle)
