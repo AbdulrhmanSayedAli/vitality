@@ -17,6 +17,6 @@ class VitalityPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(VitalityPainter oldDelegate) {
-    return oldDelegate.shapes != shapes || oldDelegate.background != background;
+    return true;
   }
 }
