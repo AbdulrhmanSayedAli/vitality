@@ -11,8 +11,6 @@ import 'shapesManagement/Shape.dart';
 import 'shapesManagement/ShapesGenerator.dart';
 
 class Vitality extends StatefulWidget {
-  late double height;
-  late double width;
   late int itemsCount;
   late double maxOpacity;
   late double minOpacity;
@@ -30,11 +28,9 @@ class Vitality extends StatefulWidget {
   late int lines;
 
   Vitality.randomly(
-      {required this.height,
-      required this.width,
-      this.itemsCount = 60,
+      {this.itemsCount = 60,
       this.maxSize = 50,
-      this.minSize = 1,
+      this.minSize = 5,
       this.enableXMovements = true,
       this.enableYMovements = true,
       this.maxOpacity = 0.8,
@@ -50,9 +46,7 @@ class Vitality extends StatefulWidget {
   }
 
   Vitality.lines(
-      {required this.height,
-      required this.width,
-      this.maxOpacity = 0.8,
+      {this.maxOpacity = 0.8,
       this.minOpacity = 0.1,
       this.maxSpeed = 1,
       this.minSpeed = 0,
@@ -70,10 +64,8 @@ class Vitality extends StatefulWidget {
 
   @override
   _VitalityState createState() => _VitalityState(
-        width: width,
         maxSpeed: maxSpeed,
         minSpeed: minSpeed,
-        height: height,
         count: itemsCount,
         enableXMovements: enableXMovements,
         enableYMovements: enableYMovements,
@@ -91,8 +83,6 @@ class Vitality extends StatefulWidget {
 }
 
 class _VitalityState extends State<Vitality> {
-  double height;
-  double width;
   double maxSize;
   double minSize;
   double maxOpacity;
@@ -111,14 +101,14 @@ class _VitalityState extends State<Vitality> {
   VitalityMode mode;
   late ShapesGenerator generator;
   late List<List<Shape>> linesShapes;
+  bool finishedInitilization = false;
+  late Timer timer;
 
   _VitalityState(
-      {required this.height,
-      required this.minSize,
+      {required this.minSize,
       required this.whenOutOfScreenMode,
       required this.enableYMovements,
       required this.enableXMovements,
-      required this.width,
       required this.count,
       required this.lines,
       required this.randomItemsBehaviours,
@@ -129,7 +119,9 @@ class _VitalityState extends State<Vitality> {
       required this.minOpacity,
       required this.minSpeed,
       required this.maxSpeed,
-      this.background}) {
+      this.background});
+
+  void initShapes(double width, double height) {
     generator = ShapesGenerator.randomly(
       maxWidth: width,
       maxHeight: height,
@@ -151,53 +143,7 @@ class _VitalityState extends State<Vitality> {
         List.generate(lines, (index) => generator.getLinesShapes(lines));
   }
 
-  @override
-  Widget build(BuildContext context) {
-    if (mode == VitalityMode.Randomly)
-      return ClipRRect(
-        child: CustomPaint(
-          size: Size(width, height),
-          painter: VitalityPainter(shapes, background),
-        ),
-      );
-    else
-      return ClipRRect(
-        child: Container(
-          color: background,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SizedBox(
-                width: width,
-                height: height / (2 * (lines + 1)),
-              ),
-              for (int i = 0; i < lines; i++) ...[
-                CustomPaint(
-                  size: Size(width, height / (2 * (lines + 1))),
-                  painter: VitalityPainter(linesShapes[i], null),
-                ),
-                SizedBox(
-                  width: width,
-                  height: height / (2 * (lines + 1)),
-                )
-              ]
-            ],
-          ),
-        ),
-      );
-  }
-
-  late Timer timer;
-
-  @override
-  void dispose() {
-    timer.cancel();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
+  void initTimer(double width, double height) {
     timer = Timer.periodic(Duration(milliseconds: 1000 ~/ 60), (t) {
       setState(() {
         shapes.forEach((element) {
@@ -225,5 +171,60 @@ class _VitalityState extends State<Vitality> {
         );
       });
     });
+    finishedInitilization = true;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        double height = constraints.maxHeight;
+        double width = constraints.maxWidth;
+
+        if (!finishedInitilization) {
+          initShapes(width, height);
+          initTimer(width, height);
+        }
+
+        if (mode == VitalityMode.Randomly)
+          return ClipRRect(
+            child: CustomPaint(
+              size: Size(width, height),
+              painter: VitalityPainter(shapes, background),
+            ),
+          );
+        else
+          return ClipRRect(
+            child: Container(
+              color: background,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(
+                    width: width,
+                    height: height / (2 * (lines + 1)),
+                  ),
+                  for (int i = 0; i < lines; i++) ...[
+                    CustomPaint(
+                      size: Size(width, height / (2 * (lines + 1))),
+                      painter: VitalityPainter(linesShapes[i], null),
+                    ),
+                    SizedBox(
+                      width: width,
+                      height: height / (2 * (lines + 1)),
+                    )
+                  ]
+                ],
+              ),
+            ),
+          );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 }
