@@ -1,26 +1,23 @@
 # vitality
 
-* A Flutter package that Allows you to create a very beautiful live animations in the background (like randomly moving icons ,circles ,rectangles ....) within 10 lines.
+- Introducing a powerful Flutter package that lets you effortlessly create stunning live animations in the background. With just 10 lines of code, you can add randomly moving icons, circles, rectangles, and more to your app, resulting in a visually captivating experience.
 
-## Examples 
+## Examples
 
 Here is some examples of using vitality library :
 
-* ![example 1](https://github.com/AbdulrhmanSayedAli/vitalityGifs/blob/main/example_1.gif) ![example 2](https://github.com/AbdulrhmanSayedAli/vitalityGifs/blob/main/example_2.gif)
+- ![example 1](https://github.com/AbdulrhmanSayedAli/vitalityGifs/blob/main/example_1.gif) ![example 2](https://github.com/AbdulrhmanSayedAli/vitalityGifs/blob/main/example_2.gif)
 
-* ![example 3](https://github.com/AbdulrhmanSayedAli/vitalityGifs/blob/main/example_3.gif) ![example 4](https://github.com/AbdulrhmanSayedAli/vitalityGifs/blob/main/example_4.gif)
+- ![example 3](https://github.com/AbdulrhmanSayedAli/vitalityGifs/blob/main/example_3.gif) ![example 4](https://github.com/AbdulrhmanSayedAli/vitalityGifs/blob/main/example_4.gif)
 
-* ![example 5](https://github.com/AbdulrhmanSayedAli/vitalityGifs/blob/main/example_5.gif)
-
+- ![example 5](https://github.com/AbdulrhmanSayedAli/vitalityGifs/blob/main/example_5.gif)
 
 ## usage :
 
-* vitality package is very easy to use you can understand its usage in the code below :
+- The vitality package is incredibly user-friendly, making it a breeze to incorporate into your code. Take a look at the example below to quickly grasp how to use it:
 
 ```dart
 Vitality.randomly(
-                height: size.height,
-                width: size.width,
                 background: Colors.black,
                 maxOpacity: 0.8,
                 minOpacity: 0.3,
@@ -39,31 +36,21 @@ Vitality.randomly(
               )
 ```
 
-* <b>Note!! :</b> Do not pass double.infinty to the width or height use MediaQuery instead :
+- The "whenOutOfScreenMode" parameter determines how a shape behaves at the screen edge :
+
+  - <b>none</b> : It does nothing and continues its movements out the screen.
+  - <b>Reflect</b> : It bounces and returns in the oppisite direction.
+  - <b>Teleport</b> : It continues its movements to the other side of the screen.
+
+- The "randomItemsBehaviours" parameter determines the shapes that the library can generate and defines the available options for generating shapes :
+
+  - You can choose one from the ShapeType enum (FilledCircle, StrokeCicle, FilledRectangle, Icon, ...)
+
     ```dart
-       Size size = MediaQuery.of(context).size;
-        ...
-        Vitality.randomly(
-                height: size.height,
-                width: size.width,
-                ...
-                )
+    ItemBehaviour(shape: ShapeType.StrokeCircle)
     ```
- 
 
-* the whenOutOfScreenMode defines what should the shape do when it reaches the screen edge :
-    - <b>none</b> : it does nothing and continues its movements out the screen.
-    - <b>Reflect</b> : it bounces and returns in the oppisite direction.
-    - <b>Teleport</b> : it continues its movements to the other side of the screen.
-
-* the randomItemsBehaviours defines what available shapes can the library generate :
-    - you can chose one from the ShapeType enum (FilledCircle, StrokeCicle, FilledRectangle, Icon, ...)
-
-         ```dart
-        ItemBehaviour(shape: ShapeType.StrokeCircle)
-        ```
-    - if you chose the icon type you also have to pass an IconData to the Item Behaviour
-        ```dart
-         ItemBehaviour(shape: ShapeType.Icon, icon: Icons.star)
-        ```
-
+  - if you chose the icon type you also have to pass an IconData to the Item Behaviour
+    ```dart
+     ItemBehaviour(shape: ShapeType.Icon, icon: Icons.star)
+    ```
