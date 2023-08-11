@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:vitality/models/ItemBehaviour.dart';
 
-class Shape {
+class Shape implements Equatable {
   late Offset pos;
   late double dx;
   late double dy;
@@ -15,7 +16,8 @@ class Shape {
       required this.dy,
       required this.size,
       required this.color,
-      required this.behaviour});
+      required this.behaviour
+      });
 
   void draw(Canvas canvas, Size size) {
     if (behaviour.shape == ShapeType.FilledCircle)
@@ -146,4 +148,12 @@ class Shape {
     }
     pos = Offset(x, y);
   }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [pos, dx, dy, size, color, behaviour];
+
+  @override
+  // TODO: implement stringify
+  bool? get stringify => true;
 }

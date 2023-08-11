@@ -44,13 +44,16 @@ class Vitality extends StatefulWidget {
       this.whenOutOfScreenMode = WhenOutOfScreenMode.none,
       required this.randomItemsBehaviours,
       required this.randomItemsColors,
-      this.background}) {
+        Key? key,
+      this.background}) : super(key: key) {
     mode = VitalityMode.Randomly;
     lines = 0;
   }
 
   Vitality.lines(
-      {required this.height,
+      {
+        Key? key,
+        required this.height,
       required this.width,
       this.maxOpacity = 0.8,
       this.minOpacity = 0.1,
@@ -59,7 +62,7 @@ class Vitality extends StatefulWidget {
       this.lines = 5,
       required this.randomItemsBehaviours,
       required this.randomItemsColors,
-      this.background}) {
+      this.background}): super(key: key)  {
     mode = VitalityMode.Lines;
     whenOutOfScreenMode = WhenOutOfScreenMode.Teleport;
     minSize = maxSize = 0;
@@ -84,7 +87,6 @@ class Vitality extends StatefulWidget {
         mode: mode,
         lines: lines,
         randomItemsColors: randomItemsColors,
-        background: background,
         maxOpacity: min(maxOpacity, 1),
         minOpacity: max(minOpacity, 0),
       );
@@ -101,7 +103,6 @@ class _VitalityState extends State<Vitality> {
   int lines;
   double maxSpeed;
   double minSpeed;
-  Color? background;
   WhenOutOfScreenMode whenOutOfScreenMode;
   List<ItemBehaviour> randomItemsBehaviours;
   List<Color> randomItemsColors;
@@ -129,7 +130,7 @@ class _VitalityState extends State<Vitality> {
       required this.minOpacity,
       required this.minSpeed,
       required this.maxSpeed,
-      this.background}) {
+      }) {
     generator = ShapesGenerator.randomly(
       maxWidth: width,
       maxHeight: height,
@@ -156,14 +157,16 @@ class _VitalityState extends State<Vitality> {
     if (mode == VitalityMode.Randomly)
       return ClipRRect(
         child: CustomPaint(
+          isComplex: true,
+          willChange: true,
           size: Size(width, height),
-          painter: VitalityPainter(shapes, background),
+          painter: VitalityPainter(shapes, widget.background),
         ),
       );
     else
       return ClipRRect(
         child: Container(
-          color: background,
+          color: widget.background,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -173,6 +176,8 @@ class _VitalityState extends State<Vitality> {
               ),
               for (int i = 0; i < lines; i++) ...[
                 CustomPaint(
+                  isComplex: true,
+                  willChange: true,
                   size: Size(width, height / (2 * (lines + 1))),
                   painter: VitalityPainter(linesShapes[i], null),
                 ),

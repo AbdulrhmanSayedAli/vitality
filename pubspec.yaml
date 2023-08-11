@@ -11,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  #utilizzato per effettuare comparazioni sul tipo di classe
+  equatable: ^2.0.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
