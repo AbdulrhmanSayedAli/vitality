@@ -1,10 +1,11 @@
 import 'dart:math';
 import 'dart:ui';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:vitality/models/ItemBehaviour.dart';
 import 'Shape.dart';
 
-class ShapesGenerator {
+class ShapesGenerator implements Equatable {
   double maxWidth;
   double maxHeight;
   double maxSize;
@@ -101,4 +102,23 @@ class ShapesGenerator {
     }
     return res;
   }
+
+  @override
+  List<Object?> get props => [
+        maxWidth,
+        maxHeight,
+        maxSize,
+        minSize,
+        maxOpacity,
+        minOpacity,
+        maxSpeed,
+        minSpeed,
+        enableXMovements,
+        enableYMovements,
+        behaviours,
+        colors
+      ];
+
+  @override
+  bool? get stringify => true;
 }
