@@ -17,3 +17,9 @@
 ## 1.0.4
 
 - Fixing error : "App error: setState() called after dispose():VitalityState#eee0e(lifecycle state: defunct, not mounted)"
+
+## 2.0.0
+
+- Removing the required width and height properties (Vitality will now take the parent's width and height).
+- Improving performance.
+- Fixing the error: sometimes the animations freeze.
