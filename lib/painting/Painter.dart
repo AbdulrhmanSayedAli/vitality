@@ -22,10 +22,8 @@ class VitalityPainter extends CustomPainter implements Equatable {
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [shapes, background];
 
   @override
-  // TODO: implement stringify
   bool? get stringify => true;
 }

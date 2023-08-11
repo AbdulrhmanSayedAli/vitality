@@ -104,21 +104,21 @@ class ShapesGenerator implements Equatable {
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
-   maxWidth,
-   maxHeight,
-   maxSize,
-   minSize,
-   maxOpacity,
-   minOpacity,
-   maxSpeed,
-   minSpeed,
-   enableXMovements,
-   enableYMovements,
-  ];
+        maxWidth,
+        maxHeight,
+        maxSize,
+        minSize,
+        maxOpacity,
+        minOpacity,
+        maxSpeed,
+        minSpeed,
+        enableXMovements,
+        enableYMovements,
+        behaviours,
+        colors
+      ];
 
   @override
-  // TODO: implement stringify
   bool? get stringify => true;
 }
