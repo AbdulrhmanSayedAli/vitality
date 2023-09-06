@@ -91,6 +91,8 @@ class Shape implements Equatable {
 //      var para = builder.build();
 //      para.layout(ParagraphConstraints(width: this.size));
 //      canvas.drawParagraph(para, Offset(pos.dx - this.size / 2, pos.dy - this.size / 2));
+    } else if (behaviour.shape == ShapeType.Image && behaviour.image != null) {
+      canvas.drawImage(behaviour.image!, pos, getPaint());
     }
   }
 

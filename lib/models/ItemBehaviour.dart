@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'dart:ui' as ui;
 
 class ItemBehaviour {
   ShapeType shape;
   IconData? icon;
+  ui.Image? image;
 
-  ItemBehaviour({required this.shape, this.icon});
+  ItemBehaviour({required this.shape, this.icon, this.image});
 }
 
 enum ShapeType {
@@ -16,5 +18,6 @@ enum ShapeType {
   StrokeTriangle,
   DoubleStrokeTriangle,
   TripleStrokeTriangle,
-  Icon
+  Icon,
+  Image
 }
