@@ -92,7 +92,17 @@ class Shape implements Equatable {
 //      para.layout(ParagraphConstraints(width: this.size));
 //      canvas.drawParagraph(para, Offset(pos.dx - this.size / 2, pos.dy - this.size / 2));
     } else if (behaviour.shape == ShapeType.Image && behaviour.image != null) {
-      canvas.drawImage(behaviour.image!, pos, getPaint());
+      double w = behaviour.image!.width.toDouble();
+      double h = behaviour.image!.height.toDouble();
+      double scaledW = this.size;
+      double scaledH = (scaledW * h) / w;
+
+      canvas.drawImageRect(
+          behaviour.image!,
+          Rect.fromLTWH(0, 0, w, h),
+          Rect.fromPoints(Offset(pos.dx - scaledW / 2, pos.dy - scaledH / 2),
+              Offset(pos.dx + scaledW / 2, pos.dy + scaledH / 2)),
+          getPaint());
     }
   }
 
