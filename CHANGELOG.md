@@ -1,3 +1,7 @@
+# Changelog
+
+All notable changes to this package will be documented in this file.
+
 ## 1.0.1
 
 - A Flutter package that Allows you to create a very beautiful live animations in the background (like randomly moving icons ,circles ,rectangles ....) within 10 lines.
@@ -10,7 +14,7 @@
 
 - Fixing error : "Unsupported operation: Cannot modify an unmodifiable list" error when passing a const array of colors
 
-## 1.0.3
+## 1.0.3 [Retracted Version]
 
 - Improving performance
 
@@ -23,3 +27,7 @@
 - Removing the required width and height properties (Vitality will now take the parent's width and height).
 - Improving performance.
 - Fixing the error: sometimes the animations freeze.
+
+## 2.1.0
+
+- Enhancing functionality by introducing the capability to draw not only icons and shapes but also images.
