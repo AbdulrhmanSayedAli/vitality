@@ -67,34 +67,37 @@ Vitality.randomly(
     - Convert the path into `dart:ui Image` object
 
     ```dart
-     Future<ui.Image> loadImage(String assetPath) async {
+    import 'dart:ui' as ui;
+    import 'package:flutter/services.dart';
+
+    Future<ui.Image> loadImage(String assetPath) async {
       ByteData data = await rootBundle.load(assetPath);
       List<int> bytes = data.buffer.asUint8List();
       ui.Codec codec = await ui.instantiateImageCodec(Uint8List.fromList(bytes));
       ui.FrameInfo fi = await codec.getNextFrame();
       return fi.image;
-     }
+    }
     ```
 
     - Integrate this function into your code :
 
     ```dart
-     FutureBuilder<ui.Image>(
-          future: loadImage('assets/images/your_image.png'),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return Vitality.randomly(
-                whenOutOfScreenMode: WhenOutOfScreenMode.Reflect,
-                randomItemsColors: const [Colors.yellow],
-                randomItemsBehaviours: [
-                  ItemBehaviour(
-                    shape: ShapeType.Image,
-                    image: snapshot.data!,
-                  )
-                ],
-              );
-            }
-            return const CircularProgressIndicator();
-          },
-        ),
+    FutureBuilder<ui.Image>(
+      future: loadImage('assets/images/your_image.png'),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Vitality.randomly(
+            whenOutOfScreenMode: WhenOutOfScreenMode.Reflect,
+            randomItemsColors: const [Colors.yellow],
+            randomItemsBehaviours: [
+              ItemBehaviour(
+                shape: ShapeType.Image,
+                image: snapshot.data!,
+              )
+            ],
+          );
+        }
+        return const CircularProgressIndicator();
+      },
+    ),
     ```
