@@ -1,9 +1,7 @@
-* vitality package is very easy to use you can understand its usage in the code below :
+- vitality package is very easy to use you can understand its usage in the code below :
 
 ```dart
 Vitality.randomly(
-                height: size.height,
-                width: size.width,
                 background: Colors.black,
                 maxOpacity: 0.8,
                 minOpacity: 0.3,
