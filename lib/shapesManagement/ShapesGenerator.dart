@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:vitality/models/ItemBehaviour.dart';
 import 'Shape.dart';
 
+// ignore: must_be_immutable
 class ShapesGenerator implements Equatable {
   double maxWidth;
   double maxHeight;

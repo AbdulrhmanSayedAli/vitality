@@ -10,6 +10,7 @@ import 'painting/Painter.dart';
 import 'shapesManagement/Shape.dart';
 import 'shapesManagement/ShapesGenerator.dart';
 
+// ignore: must_be_immutable
 class Vitality extends StatefulWidget {
   late int itemsCount;
   late double maxOpacity;

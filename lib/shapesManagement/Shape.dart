@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:vitality/models/ItemBehaviour.dart';
 
+// ignore: must_be_immutable
 class Shape implements Equatable {
   late Offset pos;
   late double dx;

@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:vitality/shapesManagement/Shape.dart';
 
+// ignore: must_be_immutable
 class VitalityPainter extends CustomPainter implements Equatable {
   List<Shape> shapes;
   Color? background;
