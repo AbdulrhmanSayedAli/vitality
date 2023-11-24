@@ -1,6 +1,6 @@
 name: vitality
-description: Introducing a powerful Flutter package that lets you effortlessly create stunning live animations in the background. With just 10 lines of code, you can add randomly moving icons, circles, rectangles, and more to your app, resulting in a visually captivating experience.
-version: 2.0.0
+description: Introducing a powerful Flutter package that lets you effortlessly create stunning live animations in the background.
+version: 2.1.0
 homepage: https://github.com/AbdulrhmanSayedAli/vitality
 
 environment:
