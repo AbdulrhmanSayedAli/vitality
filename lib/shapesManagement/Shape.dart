@@ -1,15 +1,17 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:vitality/models/ItemBehaviour.dart';
+import 'package:vitality/models/WhenOutOfScreenMode.dart';
 
 // ignore: must_be_immutable
 class Shape implements Equatable {
-  late Offset pos;
-  late double dx;
-  late double dy;
-  late double size;
-  late Color color;
-  late ItemBehaviour behaviour;
+  Offset pos;
+  double dx;
+  double dy;
+  double size;
+  Color color;
+  ItemBehaviour behaviour;
+  WhenOutOfScreenMode whenOutOfScreenMode;
 
   Shape(
       {required this.pos,
@@ -17,31 +19,34 @@ class Shape implements Equatable {
       required this.dy,
       required this.size,
       required this.color,
+      required this.whenOutOfScreenMode,
       required this.behaviour});
 
   void draw(Canvas canvas, Size size) {
-    if (behaviour.shape == ShapeType.FilledCircle)
+    if (behaviour.shape == ShapeType.FilledCircle) {
       canvas.drawCircle(pos, this.size / 2, getPaint());
-    else if (behaviour.shape == ShapeType.TripleStrokeCircle) {
+    } else if (behaviour.shape == ShapeType.StrokeCircle) {
+      canvas.drawCircle(pos, this.size / 2, getPaint());
+    } else if (behaviour.shape == ShapeType.TripleStrokeCircle) {
       canvas.drawCircle(pos, this.size / 2, getPaint());
       canvas.drawCircle(pos, this.size / 6, getPaint());
       canvas.drawCircle(pos, this.size / 3, getPaint());
     } else if (behaviour.shape == ShapeType.DoubleStrokeCircle) {
       canvas.drawCircle(pos, this.size / 2, getPaint());
       canvas.drawCircle(pos, this.size / 4, getPaint());
-    } else if (behaviour.shape == ShapeType.FilledTriangle) {
+    } else if (behaviour.shape == ShapeType.FilledSquare) {
       canvas.drawRect(
           Rect.fromPoints(
               Offset(pos.dx - this.size / 2, pos.dy - this.size / 2),
               Offset(pos.dx + this.size / 2, pos.dy + this.size / 2)),
           getPaint());
-    } else if (behaviour.shape == ShapeType.StrokeTriangle) {
+    } else if (behaviour.shape == ShapeType.StrokeSquare) {
       canvas.drawRect(
           Rect.fromPoints(
               Offset(pos.dx - this.size / 2, pos.dy - this.size / 2),
               Offset(pos.dx + this.size / 2, pos.dy + this.size / 2)),
           getPaint());
-    } else if (behaviour.shape == ShapeType.DoubleStrokeTriangle) {
+    } else if (behaviour.shape == ShapeType.DoubleStrokeSquare) {
       canvas.drawRect(
           Rect.fromPoints(
               Offset(pos.dx - this.size / 2, pos.dy - this.size / 2),
@@ -52,7 +57,7 @@ class Shape implements Equatable {
               Offset(pos.dx - this.size / 4, pos.dy - this.size / 4),
               Offset(pos.dx + this.size / 4, pos.dy + this.size / 4)),
           getPaint());
-    } else if (behaviour.shape == ShapeType.TripleStrokeTriangle) {
+    } else if (behaviour.shape == ShapeType.TripleStrokeSquare) {
       canvas.drawRect(
           Rect.fromPoints(
               Offset(pos.dx - this.size / 2, pos.dy - this.size / 2),
@@ -84,14 +89,6 @@ class Shape implements Equatable {
       textPainter.layout();
       textPainter.paint(
           canvas, Offset(pos.dx - this.size / 2, pos.dy - this.size / 2));
-
-//      var builder = ParagraphBuilder(ParagraphStyle(
-//        fontFamily: behaviour.icon!.fontFamily,
-//      ))
-//        ..addText(String.fromCharCode(behaviour.icon!.codePoint));
-//      var para = builder.build();
-//      para.layout(ParagraphConstraints(width: this.size));
-//      canvas.drawParagraph(para, Offset(pos.dx - this.size / 2, pos.dy - this.size / 2));
     } else if (behaviour.shape == ShapeType.Image && behaviour.image != null) {
       double w = behaviour.image!.width.toDouble();
       double h = behaviour.image!.height.toDouble();
@@ -111,7 +108,7 @@ class Shape implements Equatable {
     Paint paint = Paint();
     paint.color = color;
     if (behaviour.shape == ShapeType.FilledCircle ||
-        behaviour.shape == ShapeType.FilledTriangle)
+        behaviour.shape == ShapeType.FilledSquare)
       paint.style = PaintingStyle.fill;
     else
       paint.style = PaintingStyle.stroke;
@@ -161,8 +158,18 @@ class Shape implements Equatable {
     pos = Offset(x, y);
   }
 
+  void delta(double width, double height) {
+    if (whenOutOfScreenMode == WhenOutOfScreenMode.none)
+      deltaNone(width, height);
+    else if (whenOutOfScreenMode == WhenOutOfScreenMode.Teleport)
+      deltaTeleport(width, height);
+    else
+      deltaReflect(width, height);
+  }
+
   @override
-  List<Object?> get props => [pos, dx, dy, size, color, behaviour];
+  List<Object?> get props =>
+      [pos, dx, dy, size, color, behaviour, whenOutOfScreenMode];
 
   @override
   bool? get stringify => true;

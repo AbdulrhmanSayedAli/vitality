@@ -10,80 +10,97 @@ import 'painting/Painter.dart';
 import 'shapesManagement/Shape.dart';
 import 'shapesManagement/ShapesGenerator.dart';
 
+const int DefaultItemsCount = 60;
+const int DefaultLines = 5;
+const double DefaultmaxSize = 50;
+const double DefaultminSize = 5;
+const double DefaultmaxOpacity = 0.8;
+const double DefaultminOpacity = 0.1;
+const double DefaultmaxSpeed = 1;
+const double DefaultminSpeed = 0;
+const bool DefaultenableXMovements = true;
+const bool DefaultenableYMovements = true;
+const WhenOutOfScreenMode DefaultwhenOutOfScreenMode = WhenOutOfScreenMode.none;
+
 // ignore: must_be_immutable
 class Vitality extends StatefulWidget {
-  late int itemsCount;
-  late double maxOpacity;
-  late double minOpacity;
-  late double maxSize;
-  late double minSize;
-  late Color? background;
-  late double maxSpeed;
-  late double minSpeed;
-  late bool enableXMovements;
-  late bool enableYMovements;
-  late WhenOutOfScreenMode whenOutOfScreenMode;
-  List<ItemBehaviour> randomItemsBehaviours;
-  List<Color> randomItemsColors;
+  int itemsCount = DefaultItemsCount;
+  double maxOpacity = DefaultmaxOpacity;
+  double minOpacity = DefaultminOpacity;
+  double maxSize = DefaultmaxSize;
+  double minSize = DefaultminSize;
+  double maxSpeed = DefaultmaxSpeed;
+  double minSpeed = DefaultminSpeed;
+  bool enableXMovements = DefaultenableXMovements;
+  bool enableYMovements = DefaultenableYMovements;
+  WhenOutOfScreenMode whenOutOfScreenMode = DefaultwhenOutOfScreenMode;
+  List<ItemBehaviour> randomItemsBehaviours = [];
+  List<Color> randomItemsColors = [];
+  int lines = DefaultLines;
+  List<Shape> shapes = [];
   late VitalityMode mode;
-  late int lines;
+  Color? background;
 
   Vitality.randomly(
-      {this.itemsCount = 60,
-      this.maxSize = 50,
-      this.minSize = 5,
-      this.enableXMovements = true,
-      this.enableYMovements = true,
-      this.maxOpacity = 0.8,
-      this.minOpacity = 0.1,
-      this.maxSpeed = 1,
-      this.minSpeed = 0,
-      this.whenOutOfScreenMode = WhenOutOfScreenMode.none,
+      {this.itemsCount = DefaultItemsCount,
+      this.maxSize = DefaultmaxSize,
+      this.minSize = DefaultminSize,
+      this.enableXMovements = DefaultenableXMovements,
+      this.enableYMovements = DefaultenableYMovements,
+      this.maxOpacity = DefaultmaxOpacity,
+      this.minOpacity = DefaultminOpacity,
+      this.maxSpeed = DefaultmaxSpeed,
+      this.minSpeed = DefaultminSpeed,
+      this.whenOutOfScreenMode = DefaultwhenOutOfScreenMode,
       required this.randomItemsBehaviours,
       required this.randomItemsColors,
       Key? key,
       this.background})
       : super(key: key) {
     mode = VitalityMode.Randomly;
-    lines = 0;
+  }
+
+  Vitality.custom(
+      {required this.shapes,
+      this.whenOutOfScreenMode = WhenOutOfScreenMode.none,
+      Key? key,
+      this.background})
+      : super(key: key) {
+    mode = VitalityMode.Custom;
   }
 
   Vitality.lines(
       {Key? key,
-      this.maxOpacity = 0.8,
-      this.minOpacity = 0.1,
-      this.maxSpeed = 1,
-      this.minSpeed = 0,
-      this.lines = 5,
+      this.maxOpacity = DefaultmaxOpacity,
+      this.minOpacity = DefaultminOpacity,
+      this.maxSpeed = DefaultmaxSpeed,
+      this.minSpeed = DefaultminSpeed,
+      this.lines = DefaultLines,
       required this.randomItemsBehaviours,
       required this.randomItemsColors,
       this.background})
       : super(key: key) {
     mode = VitalityMode.Lines;
     whenOutOfScreenMode = WhenOutOfScreenMode.Teleport;
-    minSize = maxSize = 0;
-    enableXMovements = true;
-    enableYMovements = false;
-    itemsCount = 0;
   }
 
   @override
   _VitalityState createState() => _VitalityState(
-        maxSpeed: maxSpeed,
-        minSpeed: minSpeed,
-        count: itemsCount,
-        enableXMovements: enableXMovements,
-        enableYMovements: enableYMovements,
-        maxSize: maxSize,
-        randomItemsBehaviours: randomItemsBehaviours,
-        whenOutOfScreenMode: whenOutOfScreenMode,
-        minSize: minSize,
-        mode: mode,
-        lines: lines,
-        randomItemsColors: randomItemsColors,
-        maxOpacity: min(maxOpacity, 1),
-        minOpacity: max(minOpacity, 0),
-      );
+      maxSpeed: maxSpeed,
+      minSpeed: minSpeed,
+      count: itemsCount,
+      enableXMovements: enableXMovements,
+      enableYMovements: enableYMovements,
+      maxSize: maxSize,
+      minSize: minSize,
+      randomItemsBehaviours: randomItemsBehaviours,
+      whenOutOfScreenMode: whenOutOfScreenMode,
+      mode: mode,
+      lines: lines,
+      randomItemsColors: randomItemsColors,
+      maxOpacity: min(maxOpacity, 1),
+      minOpacity: max(minOpacity, 0),
+      shapes: shapes);
 }
 
 class _VitalityState extends State<Vitality> {
@@ -103,7 +120,7 @@ class _VitalityState extends State<Vitality> {
   bool enableYMovements;
   VitalityMode mode;
   late ShapesGenerator generator;
-  late List<List<Shape>> linesShapes;
+  List<List<Shape>> linesShapes = [];
   bool finishedInitilization = false;
   late Timer timer;
 
@@ -122,23 +139,26 @@ class _VitalityState extends State<Vitality> {
     required this.minOpacity,
     required this.minSpeed,
     required this.maxSpeed,
+    this.shapes = const [],
   });
 
   void initShapes(double width, double height) {
     generator = ShapesGenerator.randomly(
-      maxWidth: width,
-      maxHeight: height,
-      maxSize: maxSize,
-      minSize: minSize,
-      maxOpacity: maxOpacity,
-      minOpacity: minOpacity,
-      behaviours: randomItemsBehaviours,
-      minSpeed: minSpeed,
-      colors: randomItemsColors,
-      enableXMovements: enableXMovements,
-      enableYMovements: enableYMovements,
-      maxSpeed: maxSpeed,
-    );
+        minHeight: 0,
+        minWidth: 0,
+        maxWidth: width,
+        maxHeight: height,
+        maxSize: maxSize,
+        minSize: minSize,
+        maxOpacity: maxOpacity,
+        minOpacity: minOpacity,
+        behaviours: randomItemsBehaviours,
+        minSpeed: minSpeed,
+        colors: randomItemsColors,
+        enableXMovements: enableXMovements,
+        enableYMovements: enableYMovements,
+        maxSpeed: maxSpeed,
+        whenOutOfScreenMode: whenOutOfScreenMode);
 
     shapes = generator.getShapes(count);
 
@@ -150,24 +170,14 @@ class _VitalityState extends State<Vitality> {
     timer = Timer.periodic(Duration(milliseconds: 1000 ~/ 60), (t) {
       setState(() {
         shapes.forEach((element) {
-          if (whenOutOfScreenMode == WhenOutOfScreenMode.none)
-            element.deltaNone(width, height);
-          else if (whenOutOfScreenMode == WhenOutOfScreenMode.Reflect)
-            element.deltaReflect(width, height);
-          else
-            element.deltaTeleport(width, height);
+          element.delta(width, height);
         });
 
         linesShapes.forEach(
           (s) {
             s.forEach(
               (element) {
-                if (whenOutOfScreenMode == WhenOutOfScreenMode.none)
-                  element.deltaNone(width, height);
-                else if (whenOutOfScreenMode == WhenOutOfScreenMode.Reflect)
-                  element.deltaReflect(width, height);
-                else
-                  element.deltaTeleport(width, height);
+                element.delta(width, height);
               },
             );
           },
@@ -185,11 +195,12 @@ class _VitalityState extends State<Vitality> {
         double width = constraints.maxWidth;
 
         if (!finishedInitilization) {
-          initShapes(width, height);
+          if (shapes.isEmpty || linesShapes.isEmpty) initShapes(width, height);
           initTimer(width, height);
+          print(linesShapes);
         }
 
-        if (mode == VitalityMode.Randomly)
+        if (mode == VitalityMode.Randomly || mode == VitalityMode.Custom)
           return ClipRRect(
             child: CustomPaint(
               size: Size(width, height),

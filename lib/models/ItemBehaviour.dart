@@ -14,10 +14,10 @@ enum ShapeType {
   StrokeCircle,
   DoubleStrokeCircle,
   TripleStrokeCircle,
-  FilledTriangle,
-  StrokeTriangle,
-  DoubleStrokeTriangle,
-  TripleStrokeTriangle,
+  FilledSquare,
+  StrokeSquare,
+  DoubleStrokeSquare,
+  TripleStrokeSquare,
   Icon,
-  Image
+  Image,
 }
