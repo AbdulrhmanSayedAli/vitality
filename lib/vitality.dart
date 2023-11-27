@@ -65,11 +65,7 @@ class Vitality extends StatefulWidget {
     mode = VitalityMode.Randomly;
   }
 
-  Vitality.custom(
-      {required this.shapes,
-      this.whenOutOfScreenMode = WhenOutOfScreenMode.none,
-      Key? key,
-      this.background})
+  Vitality.custom({required this.shapes, Key? key, this.background})
       : super(key: key) {
     mode = VitalityMode.Custom;
   }
@@ -165,10 +161,12 @@ class _VitalityState extends State<Vitality> {
         maxSpeed: maxSpeed,
         whenOutOfScreenMode: whenOutOfScreenMode);
 
-    shapes = generator.getShapes(count);
+    if (shapes.isEmpty && mode == VitalityMode.Randomly)
+      shapes = generator.getShapes(count);
 
-    linesShapes =
-        List.generate(lines, (index) => generator.getLinesShapes(lines));
+    if (linesShapes.isEmpty && mode == VitalityMode.Lines)
+      linesShapes =
+          List.generate(lines, (index) => generator.getLinesShapes(lines));
   }
 
   void initTimer(double width, double height) {
@@ -200,9 +198,8 @@ class _VitalityState extends State<Vitality> {
         double width = constraints.maxWidth;
 
         if (!finishedInitilization) {
-          if (shapes.isEmpty || linesShapes.isEmpty) initShapes(width, height);
+          initShapes(width, height);
           initTimer(width, height);
-          print(linesShapes);
         }
 
         if (mode == VitalityMode.Randomly || mode == VitalityMode.Custom)
