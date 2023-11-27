@@ -1,1 +1,1 @@
-enum VitalityMode { Randomly, Lines }
+enum VitalityMode { Randomly, Lines, Custom }

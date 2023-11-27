@@ -31,3 +31,11 @@ All notable changes to this package will be documented in this file.
 ## 2.1.0
 
 - Enhancing functionality by introducing the capability to draw not only icons and shapes but also images.
+
+## 3.0.0
+
+- Introduced a custom mode option to enhance specific customization capabilities.
+- Implemented minimum height and width parameters in the `ShapesGenerator` for greater control.
+- Most `ShapesGenerator` parameters is no longer required.
+- Renamed all `ShapeType` names from triangle to square.
+- Eliminate the need to import individual files, simply import the main library file.

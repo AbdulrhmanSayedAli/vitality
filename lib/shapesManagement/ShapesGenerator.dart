@@ -3,12 +3,16 @@ import 'dart:ui';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:vitality/models/ItemBehaviour.dart';
+import 'package:vitality/models/WhenOutOfScreenMode.dart';
+import 'package:vitality/vitality.dart';
 import 'Shape.dart';
 
 // ignore: must_be_immutable
 class ShapesGenerator implements Equatable {
   double maxWidth;
   double maxHeight;
+  double minWidth;
+  double minHeight;
   double maxSize;
   double minSize;
   double maxOpacity;
@@ -19,20 +23,24 @@ class ShapesGenerator implements Equatable {
   bool enableYMovements;
   List<ItemBehaviour> behaviours = [];
   List<Color> colors = [];
+  WhenOutOfScreenMode whenOutOfScreenMode;
 
   ShapesGenerator.randomly({
     required this.maxWidth,
     required this.maxHeight,
-    required this.enableXMovements,
-    required this.enableYMovements,
-    required this.maxSize,
-    required this.minSize,
-    required this.maxOpacity,
-    required this.minOpacity,
+    this.minWidth = 0,
+    this.minHeight = 0,
+    this.enableXMovements = DefaultenableXMovements,
+    this.enableYMovements = DefaultenableYMovements,
+    this.maxSize = DefaultmaxSize,
+    this.minSize = DefaultminSize,
+    this.maxOpacity = DefaultmaxOpacity,
+    this.minOpacity = DefaultminOpacity,
     required List<ItemBehaviour> behaviours,
     required List<Color> colors,
-    required this.maxSpeed,
-    required this.minSpeed,
+    this.maxSpeed = DefaultmaxSpeed,
+    this.minSpeed = DefaultminSpeed,
+    this.whenOutOfScreenMode = DefaultwhenOutOfScreenMode,
   }) {
     this.behaviours = [];
     this.colors = [];
@@ -64,15 +72,15 @@ class ShapesGenerator implements Equatable {
     return List.generate(
         count,
         (index) => Shape(
-              pos: Offset(getDouble(0, maxWidth), getDouble(0, maxHeight)),
-              dx: enableXMovements ? randomSpeed() : 0,
-              dy: enableYMovements ? randomSpeed() : 0,
-              size: getDouble(minSize, maxSize),
-              color: colors[getDouble(0, colors.length - 1).toInt()]
-                  .withOpacity(getDouble(minOpacity, maxOpacity)),
-              behaviour:
-                  behaviours[getDouble(0, behaviours.length - 1).toInt()],
-            ));
+            pos: Offset(
+                getDouble(minWidth, maxWidth), getDouble(minHeight, maxHeight)),
+            dx: enableXMovements ? randomSpeed() : 0,
+            dy: enableYMovements ? randomSpeed() : 0,
+            size: getDouble(minSize, maxSize),
+            color: colors[getDouble(0, colors.length - 1).toInt()]
+                .withOpacity(getDouble(minOpacity, maxOpacity)),
+            behaviour: behaviours[getDouble(0, behaviours.length - 1).toInt()],
+            whenOutOfScreenMode: whenOutOfScreenMode));
   }
 
   List<Shape> getLinesShapes(int lines) {
@@ -91,13 +99,13 @@ class ShapesGenerator implements Equatable {
     while (x < maxWidth) {
       res.add(
         Shape(
-          pos: Offset(x, size / 2),
-          dx: speed,
-          dy: 0,
-          size: size,
-          color: color,
-          behaviour: behaviour,
-        ),
+            pos: Offset(x, size / 2),
+            dx: speed,
+            dy: 0,
+            size: size,
+            color: color,
+            behaviour: behaviour,
+            whenOutOfScreenMode: whenOutOfScreenMode),
       );
       x += size + space;
     }
@@ -106,6 +114,8 @@ class ShapesGenerator implements Equatable {
 
   @override
   List<Object?> get props => [
+        minWidth,
+        minHeight,
         maxWidth,
         maxHeight,
         maxSize,
