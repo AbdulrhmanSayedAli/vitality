@@ -1,5 +1,10 @@
 library vitality;
 
+export 'shapesManagement/Shape.dart';
+export 'shapesManagement/ShapesGenerator.dart';
+export 'models/WhenOutOfScreenMode.dart';
+export 'models/ItemBehaviour.dart';
+
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
