@@ -6,11 +6,11 @@
 
 Check out these examples showcasing the versatility of the Vitality library:
 
-- ![example 1](https://github.com/AbdulrhmanSayedAli/vitality/raw/main/example/example_1.gif) ![example 2](https://github.com/AbdulrhmanSayedAli/vitality/raw/main/example/example_2.gif)
+- ![example 1](https://github.com/AbdulrhmanSayedAli/vitality/raw/main/example/example_1.gif) ![example 6](https://github.com/AbdulrhmanSayedAli/vitality/raw/main/example/example_6.gif)
 
 - ![example 3](https://github.com/AbdulrhmanSayedAli/vitality/raw/main/example/example_3.gif) ![example 4](https://github.com/AbdulrhmanSayedAli/vitality/raw/main/example/example_4.gif)
 
-- ![example 5](https://github.com/AbdulrhmanSayedAli/vitality/raw/main/example/example_5.gif)
+- ![example 5](https://github.com/AbdulrhmanSayedAli/vitality/raw/main/example/example_5.gif) ![example 2](https://github.com/AbdulrhmanSayedAli/vitality/raw/main/example/example_2.gif)
 
 ## Usage:
 
@@ -97,3 +97,123 @@ Vitality.randomly(
       },
     ),
     ```
+
+## Full Customization:
+
+- If you desire even more customization in your animations, Vitality provides a custom mode that is straightforward to use. In this mode, you can specify the exact shapes, icons, or images you want to animate using the `shapes` parameter. Additionally, you can control the background with the `background` parameter.
+
+### Customizing Individual Shapes:
+
+- To customize individual shapes, you can pass a list of `Shape` objects as the `shapes` parameter. Each `Shape` object includes the following properties:
+  - `pos`: Initial position of the shape [`Offset`].
+  - `dx`: Speed on the X-axis [`double`].
+  - `dy`: Speed on the Y-axis [`double`].
+  - `size`: Size of the shape [`double`].
+  - `color`: Color of the shape [`Color`].
+  - `whenOutOfScreenMode`: Behavior of the shape at the screen edge [`WhenOutOfScreenMode`].
+  - `behaviour`: Structure of the shape [`ItemBehaviour`].
+
+```dart
+Vitality.custom(shapes: [
+  Shape(
+    pos: const Offset(30, 30),
+    dx: 0.3,
+    dy: 0,
+    size: 160,
+    color: Colors.yellow,
+    whenOutOfScreenMode: WhenOutOfScreenMode.Reflect,
+    behaviour: ItemBehaviour(shape: ShapeType.Icon, icon: Icons.sunny),
+  ),
+]),
+```
+
+### Customizing Groups of Shapes:
+
+- For more dynamic combinations, you can use the `ShapesGenerator` class. This class allows you to generate shapes with specific properties,
+  resulting in an easier way to seamlessly combine multiple shapes, allowing you to effortlessly craft a beautiful background. The parameters include:
+
+  - `minWidth`, `minHeight`: Minimum width and height for random generation [double].
+  - `maxWidth`, `maxHeigh`: Maximum width and height for random generation [double].
+  - `enableXMovements`, `enableYMovements`: Whether or not the shapes will move on the X and Y axes [bool].
+  - `minSize`, `maxSize`: Minimum and maximum size values for shapes [double].
+  - `minOpacity`, `maxOpacity`: Minimum and maximum opacity values for shapes (values between 0 and 1) [double].
+  - `minSpeed`, `maxSpeed`: Minimum and maximum speed values for shapes [double].
+  - `behaviours`: List of `ItemBehaviour` for random selection.
+  - `colors`: List of `Color` for random selection.
+  - `whenOutOfScreenMode`: What will happen when shapes reach the screen edge [`WhenOutOfScreenMode`].
+
+```dart
+List<Shape> getClouds(Size size) {
+  return ShapesGenerator.randomly(
+    maxWidth: size.width,
+    maxHeight: size.height / 3,
+    enableYMovements: false,
+    maxSize: 60,
+    minSize: 50,
+    maxOpacity: 0.9,
+    minOpacity: 0.5,
+    whenOutOfScreenMode: WhenOutOfScreenMode.Reflect,
+    behaviours: [ItemBehaviour(shape: ShapeType.Icon, icon: Icons.cloud)],
+    colors: const [Colors.white],
+  ).getShapes(10);
+}
+```
+
+Now, let's mix different shapes to make something truly magical.
+
+```dart
+List<Shape> getClouds(Size size) {
+  return ShapesGenerator.randomly(
+    maxWidth: size.width,
+    maxHeight: size.height / 3,
+    enableYMovements: false,
+    maxSize: 60,
+    minSize: 50,
+    maxOpacity: 0.9,
+    minOpacity: 0.5,
+    whenOutOfScreenMode: WhenOutOfScreenMode.Reflect,
+    behaviours: [ItemBehaviour(shape: ShapeType.Icon, icon: Icons.cloud)],
+    colors: const [Colors.white],
+  ).getShapes(10);
+}
+
+List<Shape> getGroundShapes(Size size) {
+  return ShapesGenerator.randomly(
+    minHeight: size.height - 130,
+    maxWidth: size.width,
+    maxHeight: size.height,
+    enableYMovements: false,
+    maxSize: 190,
+    minSize: 90,
+    maxOpacity: 1,
+    minOpacity: 0.5,
+    whenOutOfScreenMode: WhenOutOfScreenMode.none,
+    behaviours: [
+      ItemBehaviour(shape: ShapeType.Icon, icon: Icons.circle)
+    ],
+    colors: const [Colors.green],
+    maxSpeed: 0,
+    minSpeed: 0
+  ).getShapes(40);
+}
+
+
+
+@override
+Widget build(BuildContext context) {
+  Size size = MediaQuery.of(context).size;
+  return Vitality.custom(background: Colors.blue, shapes: [
+    Shape(
+      pos: const Offset(30, 30),
+      dx: 0.3,
+      dy: 0,
+      size: 160,
+      color: Colors.yellow,
+      whenOutOfScreenMode: WhenOutOfScreenMode.Reflect,
+      behaviour: ItemBehaviour(shape: ShapeType.Icon, icon: Icons.sunny),
+    ),
+    ...getClouds(size),
+    ...getGroundShapes(size),
+  ]);
+}
+```
