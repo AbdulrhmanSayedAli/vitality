@@ -44,7 +44,7 @@ Vitality.randomly(
   - `Reflect`: It bounces and returns in the oppisite direction.
   - `Teleport`: It continues its movements to the other side of the screen.
 
-- `randomItemsBehaviours` Defines the shapes that the library can generate. Choose from the `ShapeType` enum (`FilledCircle`, `StrokeCicle`, `FilledRectangle`, `Icon`, `Image`, etc.) :
+- `randomItemsBehaviours` Defines the shapes that the library can generate. Choose from the `ShapeType` enum (`FilledCircle`, `StrokeCicle`, `FilledSquare`, `Icon`, `Image`, etc.) :
 
   - For `Icon` type, pass an `IconData` object:
 
