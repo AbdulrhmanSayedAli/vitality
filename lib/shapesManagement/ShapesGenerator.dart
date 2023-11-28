@@ -2,10 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:vitality/models/ItemBehaviour.dart';
-import 'package:vitality/models/WhenOutOfScreenMode.dart';
 import 'package:vitality/vitality.dart';
-import 'Shape.dart';
 
 // ignore: must_be_immutable
 class ShapesGenerator implements Equatable {
