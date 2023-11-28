@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vitality/models/ItemBehaviour.dart';
 import 'package:vitality/models/WhenOutOfScreenMode.dart';
 
-// ignore: must_be_immutable
+/// ignore: must_be_immutable
 class Shape implements Equatable {
   Offset pos;
   double dx;
@@ -22,85 +22,82 @@ class Shape implements Equatable {
       required this.whenOutOfScreenMode,
       required this.behaviour});
 
-  void draw(Canvas canvas, Size size) {
-    if (behaviour.shape == ShapeType.FilledCircle) {
-      canvas.drawCircle(pos, this.size / 2, getPaint());
-    } else if (behaviour.shape == ShapeType.StrokeCircle) {
-      canvas.drawCircle(pos, this.size / 2, getPaint());
-    } else if (behaviour.shape == ShapeType.TripleStrokeCircle) {
-      canvas.drawCircle(pos, this.size / 2, getPaint());
-      canvas.drawCircle(pos, this.size / 6, getPaint());
-      canvas.drawCircle(pos, this.size / 3, getPaint());
-    } else if (behaviour.shape == ShapeType.DoubleStrokeCircle) {
-      canvas.drawCircle(pos, this.size / 2, getPaint());
-      canvas.drawCircle(pos, this.size / 4, getPaint());
-    } else if (behaviour.shape == ShapeType.FilledSquare) {
-      canvas.drawRect(
-          Rect.fromPoints(
-              Offset(pos.dx - this.size / 2, pos.dy - this.size / 2),
-              Offset(pos.dx + this.size / 2, pos.dy + this.size / 2)),
-          getPaint());
-    } else if (behaviour.shape == ShapeType.StrokeSquare) {
-      canvas.drawRect(
-          Rect.fromPoints(
-              Offset(pos.dx - this.size / 2, pos.dy - this.size / 2),
-              Offset(pos.dx + this.size / 2, pos.dy + this.size / 2)),
-          getPaint());
-    } else if (behaviour.shape == ShapeType.DoubleStrokeSquare) {
-      canvas.drawRect(
-          Rect.fromPoints(
-              Offset(pos.dx - this.size / 2, pos.dy - this.size / 2),
-              Offset(pos.dx + this.size / 2, pos.dy + this.size / 2)),
-          getPaint());
-      canvas.drawRect(
-          Rect.fromPoints(
-              Offset(pos.dx - this.size / 4, pos.dy - this.size / 4),
-              Offset(pos.dx + this.size / 4, pos.dy + this.size / 4)),
-          getPaint());
-    } else if (behaviour.shape == ShapeType.TripleStrokeSquare) {
-      canvas.drawRect(
-          Rect.fromPoints(
-              Offset(pos.dx - this.size / 2, pos.dy - this.size / 2),
-              Offset(pos.dx + this.size / 2, pos.dy + this.size / 2)),
-          getPaint());
+  void drawCircles(Canvas canvas, List<double> sizes) {
+    for (double rad in sizes) canvas.drawCircle(pos, rad, getPaint());
+  }
 
+  void drawSquares(Canvas canvas, List<double> sizes) {
+    for (double d in sizes)
       canvas.drawRect(
           Rect.fromPoints(
-              Offset(pos.dx - this.size / 3, pos.dy - this.size / 3),
-              Offset(pos.dx + this.size / 3, pos.dy + this.size / 3)),
+              Offset(pos.dx - d, pos.dy - d), Offset(pos.dx + d, pos.dy + d)),
           getPaint());
+  }
 
-      canvas.drawRect(
-          Rect.fromPoints(
-              Offset(pos.dx - this.size / 6, pos.dy - this.size / 6),
-              Offset(pos.dx + this.size / 6, pos.dy + this.size / 6)),
-          getPaint());
-    } else if (behaviour.shape == ShapeType.Icon && behaviour.icon != null) {
-      TextPainter textPainter = TextPainter(textDirection: TextDirection.ltr);
-      textPainter.text = TextSpan(
-        text: String.fromCharCode(behaviour.icon!.codePoint),
-        style: TextStyle(
-          color: color,
-          fontSize: this.size,
-          fontFamily: behaviour.icon!.fontFamily,
-          package: behaviour.icon!.fontPackage,
-        ),
-      );
-      textPainter.layout();
-      textPainter.paint(
-          canvas, Offset(pos.dx - this.size / 2, pos.dy - this.size / 2));
-    } else if (behaviour.shape == ShapeType.Image && behaviour.image != null) {
-      double w = behaviour.image!.width.toDouble();
-      double h = behaviour.image!.height.toDouble();
-      double scaledW = this.size;
-      double scaledH = (scaledW * h) / w;
+  void drawIcon(Canvas canvas) {
+    if (behaviour.icon == null) return;
+    TextPainter textPainter = TextPainter(textDirection: TextDirection.ltr);
+    textPainter.text = TextSpan(
+      text: String.fromCharCode(behaviour.icon!.codePoint),
+      style: TextStyle(
+        color: color,
+        fontSize: this.size,
+        fontFamily: behaviour.icon!.fontFamily,
+        package: behaviour.icon!.fontPackage,
+      ),
+    );
+    textPainter.layout();
+    textPainter.paint(
+        canvas, Offset(pos.dx - this.size / 2, pos.dy - this.size / 2));
+  }
 
-      canvas.drawImageRect(
-          behaviour.image!,
-          Rect.fromLTWH(0, 0, w, h),
-          Rect.fromPoints(Offset(pos.dx - scaledW / 2, pos.dy - scaledH / 2),
-              Offset(pos.dx + scaledW / 2, pos.dy + scaledH / 2)),
-          getPaint());
+  void drawImage(Canvas canvas) {
+    if (behaviour.image == null) return;
+    double w = behaviour.image!.width.toDouble();
+    double h = behaviour.image!.height.toDouble();
+    double scaledW = this.size;
+    double scaledH = (scaledW * h) / w;
+
+    canvas.drawImageRect(
+        behaviour.image!,
+        Rect.fromLTWH(0, 0, w, h),
+        Rect.fromPoints(Offset(pos.dx - scaledW / 2, pos.dy - scaledH / 2),
+            Offset(pos.dx + scaledW / 2, pos.dy + scaledH / 2)),
+        getPaint());
+  }
+
+  void draw(Canvas canvas) {
+    switch (behaviour.shape) {
+      case ShapeType.FilledCircle:
+        drawCircles(canvas, [this.size / 2]);
+        break;
+      case ShapeType.StrokeCircle:
+        drawCircles(canvas, [this.size / 2]);
+        break;
+      case ShapeType.DoubleStrokeCircle:
+        drawCircles(canvas, [this.size / 2, this.size / 4]);
+        break;
+      case ShapeType.TripleStrokeCircle:
+        drawCircles(canvas, [this.size / 2, this.size / 3, this.size / 6]);
+        break;
+      case ShapeType.FilledSquare:
+        drawSquares(canvas, [this.size / 2]);
+        break;
+      case ShapeType.StrokeSquare:
+        drawSquares(canvas, [this.size / 2]);
+        break;
+      case ShapeType.DoubleStrokeSquare:
+        drawSquares(canvas, [this.size / 2, this.size / 4]);
+        break;
+      case ShapeType.TripleStrokeSquare:
+        drawSquares(canvas, [this.size / 2, this.size / 3, this.size / 6]);
+        break;
+      case ShapeType.Icon:
+        drawIcon(canvas);
+        break;
+      case ShapeType.Image:
+        drawImage(canvas);
+        break;
     }
   }
 

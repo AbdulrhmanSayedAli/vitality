@@ -13,7 +13,7 @@ class VitalityPainter extends CustomPainter implements Equatable {
   void paint(Canvas canvas, Size size) {
     if (background != null) canvas.drawColor(background!, BlendMode.srcOver);
     shapes.forEach((element) {
-      element.draw(canvas, size);
+      element.draw(canvas);
     });
   }
 
