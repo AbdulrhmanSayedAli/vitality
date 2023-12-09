@@ -3,6 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:vitality/models/ItemBehaviour.dart';
 import 'package:vitality/models/WhenOutOfScreenMode.dart';
 
+/// Represents the physical manifestation of a shape, such as a moving circle, icon, image, etc.
+///
+/// When creating an instance of this class, provide the following parameters:
+///
+/// - [pos] The initial position of the shape.
+/// - [dx] The speed of the shape on the X-axis.
+/// - [dy] The speed of the shape on the Y-axis.
+/// - [size] The size of the shape.
+/// - [color] The color of the shape.
+/// - [whenOutOfScreenMode] The behavior of the shape at the screen edge (see [WhenOutOfScreenMode] for more details).
+/// - [behaviour] The behavior of the shape at the screen edge (see [ItemBehaviour] for more details).
 /// ignore: must_be_immutable
 class Shape implements Equatable {
   Offset pos;
@@ -22,10 +33,20 @@ class Shape implements Equatable {
       required this.whenOutOfScreenMode,
       required this.behaviour});
 
+  /// Draws multiple circles with centers positioned at [pos].
+  ///
+  /// Parameters:
+  /// - [canvas] The Canvas object from custom paint used for drawing the circles.
+  /// - [sizes] List of radiuses for the circles to be drawn.
   void drawCircles(Canvas canvas, List<double> sizes) {
     for (double rad in sizes) canvas.drawCircle(pos, rad, getPaint());
   }
 
+  /// Draws multiple squares with centers positioned at [pos].
+  ///
+  /// Parameters:
+  /// - [canvas] The Canvas object from custom paint used for drawing the squares.
+  /// - [sizes] List of sizes for the squares to be drawn.
   void drawSquares(Canvas canvas, List<double> sizes) {
     for (double d in sizes)
       canvas.drawRect(
