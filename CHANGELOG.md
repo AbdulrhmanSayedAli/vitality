@@ -39,3 +39,4 @@ All notable changes to this package will be documented in this file.
 - Most `ShapesGenerator` parameters is no longer required.
 - Renamed all `ShapeType` names from triangle to square.
 - Eliminate the need to import individual files, simply import the main library file.
+- Documenting part of the code to make it clearer and easier to understand.
